@@ -39,6 +39,8 @@ class FacebookLogin extends React.Component {
     onClick: PropTypes.func,
     onFailure: PropTypes.func,
     render: PropTypes.func.isRequired,
+    display: PropTypes.string,
+    enableProfileSelector: PropTypes.bool
   };
 
   static defaultProps = {
@@ -168,7 +170,7 @@ class FacebookLogin extends React.Component {
       return;
     }
     this.setState({ isProcessing: true });
-    const { scope, appId, onClick, returnScopes, responseType, redirectUri, disableMobileRedirect, authType, state } = this.props;
+    const { scope, appId, onClick, returnScopes, responseType, redirectUri, disableMobileRedirect, authType, state, enableProfileSelector, display } = this.props;
 
     if (typeof onClick === 'function') {
       onClick(e);
@@ -199,7 +201,7 @@ class FacebookLogin extends React.Component {
         return;
       }
 
-      window.FB.login(this.checkLoginState, { scope, return_scopes: returnScopes, auth_type: params.auth_type });
+      window.FB.login(this.checkLoginState, { scope, return_scopes: returnScopes, enable_profile_selector: enableProfileSelector, display, auth_type: params.auth_type });
     }
   };
 
